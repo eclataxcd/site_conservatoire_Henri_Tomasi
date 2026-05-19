@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-*: initial;
+  --color-black: #000;
+  --color-white: #fff;
+  --color-whiteBg: #f7f7f7;
+  --color-light-green: #B9E640;
+  --color-green: #789A00;
+  --color-dark-green: #678024;
+  --color-brown: #926D37;
+  --color-peach: #FFAE7C;
+  --color-pink: #EC695B;
+  --color-ajaccio: #D79E29;
+  --color-bastia: #D14926;
+  --color-corte: #D0C600;
+
+
+  --shadow-button: 8px 8px 0px rgba(0, 0, 0, 0.25);
+
+  --font-montserrat: 'Montserrat', sans-serif;
+  --font-bodoni: 'BodoniFLF Regular', serif;
+  
+}
+
+@font-face {
+    font-family: 'BodoniFLF Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('BodoniFLF Regular'), url('BodoniFLF-Roman.woff') format('woff');
+}
+    
+
+@font-face {
+    font-family: 'BodoniFLF Medium Italic';
+    font-style: normal;
+    font-weight: normal;
+    src: local('BodoniFLF Medium Italic'), url('BodoniFLF-Italic.woff') format('woff');
+}
+    
+
+@font-face {
+    font-family: 'BodoniFLF Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('BodoniFLF Bold'), url('BodoniFLF-Bold.woff') format('woff');
+}
+    
+
+@font-face {
+    font-family: 'BodoniFLF Bold Italic';
+    font-style: normal;
+    font-weight: normal;
+    src: local('BodoniFLF Bold Italic'), url('BodoniFLF-BoldItalic.woff') format('woff');
+}
+
