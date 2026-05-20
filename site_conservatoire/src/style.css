@@ -18,6 +18,8 @@
 
 
   --shadow-button: 8px 8px 0px rgba(0, 0, 0, 0.25);
+  --shadow-card: 4px 4px 13px rgba(0, 0, 0, 0.25);
+  --shadow-card-hover: 4px 4px 13px rgba(0, 0, 0, 0.35);
 
   --font-montserrat: 'Montserrat', sans-serif;
   --font-bodoni: 'BodoniFLF Regular', serif;

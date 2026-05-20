@@ -9,17 +9,19 @@ export function Card({ date, location, title, description, imageUrl }: { date: s
         color = "text-corte";
     }
 
-    const locationClass = 'text-sm italic font-montserrat ' + color;
+    const locationClass = 'text-xs italic font-montserrat ' + color;
     
+
     return (
-        <div className="bg-white rounded-sm shadow-md w-80 min-h-90 cursor-pointer hover:shadow-2xl transition-shadow duration-300">
-            <p className="p-2 text-brown italic font-montserrat font-bold">
+        <div className="bg-white rounded-sm shadow-card w-70 min-h-70 cursor-pointer hover:shadow-card-hover transition-shadow duration-300">
+            <p className="p-2 text-brown italic font-montserrat font-bold text-sm">
                 {date}
             </p>
-            <img src={imageUrl} alt={title} className=" w-9/10 object-cover m-auto" />
+            <img src={imageUrl} alt={title} 
+            className=" w-9/10 object-cover m-auto rounded-md" />
             <div className="p-4">
                 <div className="flex justify-between mb-2">
-                    <h3 className="text-3xl font-bold font-bodoni">
+                    <h3 className="text-2xl font-bold font-bodoni">
                         {title}
                     </h3>
                     <p className={locationClass}>
@@ -27,7 +29,7 @@ export function Card({ date, location, title, description, imageUrl }: { date: s
                     </p>
                 </div>
                 
-                <p className="font-montserrat">
+                <p className="font-montserrat text-sm">
                     {description}
                 </p>
             </div>

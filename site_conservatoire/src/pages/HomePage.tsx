@@ -1,6 +1,6 @@
 import { NavBar } from '../components/other/NavBar';
 import { HomePageBanner } from '../sections/HomePageBanner';
-import { Card } from '../components/bigElements/Card';
+import { HomePageDisplayCard } from '../sections/HomePageDisplayCard';
 
 export function HomePage() {
 
@@ -10,23 +10,21 @@ export function HomePage() {
     const texteBtn2 = "Accéder à \n l'extranet";
     const textePartenaires = "Partenaires";
 
-    const date = "12/12/2024";
-    const location = "Bastia";
-    const title = "Concert de Noël";
-    const description = "Venez assister à notre concert de Noël avec des performances exceptionnelles de nos étudiants et professeurs.";
-    const imageUrl = "./src/assets/HomePageBannerPhoto.jpg";
-
+   
     return (
-        <div className='w-full min-h-screen bg-whiteBg'>
+        <div className='w-full bg-whiteBg'>
             <NavBar />
-            <HomePageBanner textes={[titre, sousTitre, texteBtn1, texteBtn2, textePartenaires]}></HomePageBanner>
+            <HomePageBanner bigTitle={titre}  smallTitle={sousTitre} btn1={texteBtn1} btn2={texteBtn2} titlePartners={textePartenaires}></HomePageBanner>
             
             <br /><br />
 
-            <Card date={date} location={location} title={title} description={description} imageUrl={imageUrl}></Card>
+            <HomePageDisplayCard ovalCard={false} sectionTitle='Dernières actualités du conservatoire' btn='Voir toutes les actualités du conservatoire'></HomePageDisplayCard>
+            <HomePageDisplayCard ovalCard={true} sectionTitle='Découvrez nos cursus' btn=''></HomePageDisplayCard>
+            <HomePageDisplayCard ovalCard={false} sectionTitle='Saison culturelle du conservatoire' btn='Voir tous les évènements du conservatoire'></HomePageDisplayCard>
+            <HomePageDisplayCard ovalCard={false} sectionTitle='Médiation culturelle du conservatoire' btn='Voir tous les évènements du conservatoire'></HomePageDisplayCard>
             
             
         </div>
 
     );
-}   
+}
