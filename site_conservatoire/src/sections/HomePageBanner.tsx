@@ -2,7 +2,7 @@ import { Button } from '../components/smallElements/Button';
 
 export function HomePageBanner({ textes }: { textes: string[] }) {
     return (
-        <div className="bg-[url(./assets/HomePageBannerPhoto.jpg)] bg-cover bg-center h-[45vw] w-full">
+        <div className="bg-[url(./assets/HomePageBannerPhoto.jpg)] bg-cover bg-center min-h-[40vw] w-full flex flex-col justify-around">
 
             <div className='bg-[url(./assets/logo_vert.png)] bg-contain bg-no-repeat w-full h-[70%] flex flex-col items-end '>
 
@@ -15,19 +15,28 @@ export function HomePageBanner({ textes }: { textes: string[] }) {
 
             </div>
 
+            <div className='w-full flex flex-row justify-between items-center flex-wrap'>
 
+                <div className='flex flex-row gap-7'>
+                    <Button style='ml-10' text={textes[2]} ></Button>
+                    <Button text={textes[3]}></Button>
+                </div>
+                
 
-            <Button text={textes[2]}></Button>
-            <Button text={textes[3]}></Button>
-
-            <h4 className='text-light-green font-bold font-bodoni text-4xl'>{textes[4]}</h4>
-            <div>
-                <img src="" alt="" />
-                <img src="" alt="" />
-                <img src="" alt="" />
-                <img src="" alt="" />
+                <div>
+                    <h4 className='text-light-green font-bold font-bodoni text-4xl'>{textes[4]}</h4>
+                    <div className='flex flex-row gap-5'>
+                        <img src="logo.png" alt="" className='w-30' />
+                        <img src="logo.png" alt="" className='w-30' />
+                        <img src="logo.png" alt="" className='w-30' />
+                        <img src="logo.png" alt="" className='w-30' />
+                    </div>
+                </div>
+                
             </div>
-        
+
+
+
         </div>
     );
 
