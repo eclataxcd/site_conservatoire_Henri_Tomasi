@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/user');
-const { validateAddUser } = require('../middlewares/authValidator');
+const { validateAddUser } = require('../middlewares/validation');
 
 // Route : GET /users/{email} 
 router.get('/users/:email', userController.getUser);
