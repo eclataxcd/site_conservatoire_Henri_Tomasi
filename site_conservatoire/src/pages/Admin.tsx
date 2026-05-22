@@ -1,3 +1,4 @@
+import { CnxForm } from '../components/bigElements/CnxForm';
 import { NavBar } from '../components/other/NavBar';
 
 export function Admin() {
@@ -8,18 +9,10 @@ export function Admin() {
     }
 
     return (
-        <>
+        <div className='w-full h-screen bg-whiteBg'>
             <NavBar />
-            <h1>Ajout d'utilisateur</h1>
-
-            <form onSubmit={(e)=> handleSubmit(e)} >
-
-                <label htmlFor="name">Nom</label>
-                <br />
-                <input className='border-2 rounded-lg' id='name' name='name' type="text" />
-                <br />
-
-            </form>
-        </>
+            <CnxForm />
+            
+        </div>
     );
 }
