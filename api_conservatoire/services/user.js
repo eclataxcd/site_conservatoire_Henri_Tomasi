@@ -4,7 +4,7 @@ const db = require('../config/db');
 const get = async (userData) => {
   const { email } = userData;
 
-  // Requête pour récupérer l'utilisateur par son email
+  // Requête 
   const querySelect = 'SELECT * FROM utilisateur WHERE email = ?';
   const [rows] = await db.execute(querySelect, [email]);
 
@@ -15,7 +15,7 @@ const get = async (userData) => {
 const add = async (userData) => {
   const { email, password } = userData;
   
-  // Insertion dans la base de données
+  // Requête
   const queryInsert = 'INSERT INTO utilisateur (email, password) VALUES (?, ?)';
   const [result] = await db.execute(queryInsert, [email, password]);
 
@@ -26,7 +26,7 @@ const add = async (userData) => {
 const deleteUser = async (userData) => {
   const { email } = userData;
 
-  // Requête pour supprimer l'utilisateur par son email
+  // Requête 
   const queryDelete = 'DELETE FROM utilisateur WHERE email = ?';
   const [result] = await db.execute(queryDelete, [email]);
 
