@@ -5,7 +5,7 @@ const get = async (userData) => {
   const { email } = userData;
 
   // Requête 
-  const querySelect = 'SELECT * FROM utilisateur WHERE email = ?';
+  const querySelect = 'SELECT * FROM utilisateur WHERE email = ? ';
   const [rows] = await db.execute(querySelect, [email]);
 
   return rows[0]; 
@@ -22,6 +22,17 @@ const add = async (userData) => {
   return result;
 };
 
+// Modifier un utilisateur
+const update = async (userData) => {
+  const { email, password } = userData;
+
+  // Requête
+  const queryUpdate = 'UPDATE utilisateur SET password = ? WHERE email = ?';
+  const [result] = await db.execute(queryUpdate, [password, email]);
+
+  return result;
+};
+
 // Supprimer un utilisateur à partir de son email
 const deleteUser = async (userData) => {
   const { email } = userData;
@@ -33,4 +44,4 @@ const deleteUser = async (userData) => {
   return result; 
 };
 
-module.exports = { get, add, deleteUser };
+module.exports = { get, add, update, deleteUser };

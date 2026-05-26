@@ -1,18 +1,16 @@
 import { CnxForm } from '../components/bigElements/CnxForm';
 import { NavBar } from '../components/other/NavBar';
+import { ConnectedAdmin } from './ConnectedAdmin';
 
 export function Admin() {
 
-    const handleSubmit = (e: any) => {
-        e.preventDefault();
-        // Logique de soumission du formulaire d'ajout d'utilisateur
-    }
+    let login = false;
 
     return (
         <div className='w-full h-screen bg-whiteBg'>
             <NavBar />
-            <CnxForm />
-            
+            {login ? (<CnxForm connected={login}/>) : 
+            (<ConnectedAdmin connected={login}/>)}            
         </div>
     );
 }
