@@ -16,8 +16,8 @@ export function Card({ date, location, title, description, imageUrl, handleRedir
     } else if (location === "Corte") {
         color = "text-corte";
     }
-
     const locationClass = 'text-xs italic font-montserrat ' + color;
+    
 
     return (
         <div onClick={handleRedirection} className="bg-white rounded-sm shadow-card w-70 min-h-70 cursor-pointer hover:shadow-card-hover transition-shadow duration-300">

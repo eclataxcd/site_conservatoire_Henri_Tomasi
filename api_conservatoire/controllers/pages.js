@@ -1,4 +1,4 @@
-const pageService = require('../services/user');
+const pageService = require('../services/pages');
 
 // Récupérer toutes les pages
 const getAllPages = async (req, res) => {
@@ -6,6 +6,7 @@ const getAllPages = async (req, res) => {
     const pages = await pageService.getAll();
     res.status(200).json(pages);
   } catch (err) {
+    console.error("Erreur détaillée :", err);
     res.status(500).json({ error: "Erreur lors de la récupération des pages." });
   }
 };

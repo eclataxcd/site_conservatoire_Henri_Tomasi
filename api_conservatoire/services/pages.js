@@ -1,11 +1,10 @@
 const db = require('../config/db');
 
 // Récupérer toutes les pages
-const getAll = async (pageId) => {
-  const { id } = pageId;
+const getAll = async () => {
 
   // Requête
-  const querySelect = 'SELECT * FROM pages';
+  const querySelect = 'SELECT * FROM pages WHERE ordre = 0';
   const [rows] = await db.execute(querySelect);
 
   return rows; 
@@ -16,7 +15,7 @@ const get = async (pageId) => {
   const { id } = pageId;
 
   // Requête 
-  const querySelect = 'SELECT * FROM pages WHERE id_page = ?';
+  const querySelect = 'SELECT * FROM available_elements WHERE id = ?';
   const [rows] = await db.execute(querySelect, [id]);
 
   return rows[0]; 

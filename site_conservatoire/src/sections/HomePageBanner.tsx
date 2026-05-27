@@ -1,17 +1,26 @@
 import { Button } from '../components/smallElements/Button';
+import { HomePageTitle } from '../components/smallElements/HomePageTitle';
+import { HomePageSmallTitle } from '../components/smallElements/HomePageSmallTitle';
 
-export function HomePageBanner({ bigTitle, smallTitle, btn1, btn2, titlePartners }: { bigTitle: string; smallTitle: string; btn1: string; btn2: string; titlePartners: string;}) {
+interface HomePageBannerProps {
+    mode: boolean;
+    bigTitle: string;
+    setBigTitle: (value: string) => void;
+    smallTitle: string;
+    setSmallTitle: (value: string) => void;
+    btn1: string;
+    btn2: string;
+    titlePartners: string;
+}
+
+export function HomePageBanner({ mode, bigTitle, setBigTitle, smallTitle, setSmallTitle, btn1, btn2, titlePartners }: HomePageBannerProps) {
     return (
         <div className="bg-[url(./assets/HomePageBannerPhoto.jpg)] bg-cover bg-center min-h-[40vw] w-full flex flex-col justify-around">
 
             <div className='bg-[url(./assets/logo_vert.png)] bg-contain bg-no-repeat w-full h-[70%] flex flex-col items-end '>
 
-                <h1 className='text-6xl text-white font-bodoni font-bold w-4/5 text-right lg:text-8xl'>
-                    {bigTitle}
-                </h1>
-                <h2 className='text-3xl text-white font-montserrat text-right w-3/5 lg:text-4xl'>
-                    {smallTitle}
-                </h2>
+                <HomePageTitle mode={mode} text={bigTitle} setText={setBigTitle}/>
+                <HomePageSmallTitle mode={mode} text={smallTitle} setText={setSmallTitle}/>
 
             </div>
 

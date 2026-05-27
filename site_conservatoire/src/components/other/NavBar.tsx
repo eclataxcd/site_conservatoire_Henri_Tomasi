@@ -10,7 +10,7 @@ export function NavBar() {
 
     return (
         <header>
-            <div className="flex items-center justify-between h-12 bg-gray-300 px-4">
+            <div className="flex items-center justify-between h-12 bg-dark-green px-4">
                 <Link className="w-10" to="/"><Logo /></Link>
 
                 {/* Menu ordi */}

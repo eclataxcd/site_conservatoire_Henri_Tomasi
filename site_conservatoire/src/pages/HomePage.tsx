@@ -1,20 +1,20 @@
 import { NavBar } from '../components/other/NavBar';
 import { HomePageBanner } from '../sections/HomePageBanner';
 import { HomePageDisplayCard } from '../sections/HomePageDisplayCard';
+import { useEffect, useState } from 'react';
 
-export function HomePage() {
-
-    const titre = "Conservatoire de Corse Henri Tomasi";
-    const sousTitre = "Etablissement d'enseignement artistique spécialisé, \n Bastia, Aiacciu è Corte";
-    const texteBtn1 = "Démarrer \n l'inscription";
-    const texteBtn2 = "Accéder à \n l'extranet";
-    const textePartenaires = "Partenaires";
+export function HomePage( mode: boolean = false) {
+    const [titre, setTitre] = useState("Conservatoire de Corse Henri Tomasi");
+    const [sousTitre, setSmallTitre] = useState("Etablissement d'enseignement artistique spécialisé, \n Bastia, Aiacciu è Corte");
+    const [texteBtn1, setTexteBtn1] = useState("Démarrer \n l'inscription");
+    const [texteBtn2, setTexteBtn2] = useState("Accéder à \n l'extranet");
+    const [textePartenaires, setTextePartenaires] = useState("Partenaires");
 
    
     return (
         <div className='w-full bg-whiteBg'>
             <NavBar />
-            <HomePageBanner bigTitle={titre}  smallTitle={sousTitre} btn1={texteBtn1} btn2={texteBtn2} titlePartners={textePartenaires}></HomePageBanner>
+            <HomePageBanner mode={mode} bigTitle={titre} setBigTitle={setTitre} smallTitle={sousTitre} setSmallTitle={setSmallTitre} btn1={texteBtn1} btn2={texteBtn2} titlePartners={textePartenaires}></HomePageBanner>
             
             <br /><br />
 

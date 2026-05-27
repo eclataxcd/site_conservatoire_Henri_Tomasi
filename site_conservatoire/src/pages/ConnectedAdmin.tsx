@@ -1,9 +1,32 @@
+import { Button } from "../components/smallElements/Button";
+import { useEffect, useState } from "react";
+import { AdminLeftSide } from "../components/bigElements/AdminLeftSide";
+import { HomePage } from "./HomePage";
 
-export function ConnectedAdmin({connected}: {connected: boolean}) {
+const componentRegistry: Record<string, React.ComponentType<any>> = {
+    "HomePage": HomePage
+};
+
+export function ConnectedAdmin({ connected }: { connected: boolean }) {
+    const [balise, setBalise] = useState("");
+    const ComponentToRender = balise ? componentRegistry[balise] : null;
+
     return (
-        <div className="p-10 bg-white w-1/2 h-auto flex flex-col m-auto mt-30 items-center rounded-lg"> 
-            <h1 className="p-3 font-bodoni font-bold text-5xl text-green">Espace Admin</h1>
-            <p className="p-3 font-montserrat text-2xl text-center">Vous êtes connecté en tant qu'administrateur.</p>
+        <div className="flex flex-row h-full bg-whiteBg">
+            <AdminLeftSide onClickElem={setBalise} />
+
+            <div className="w-auto h-full ">
+                <div>
+                    {ComponentToRender ? (
+                        <ComponentToRender mode={connected}/>
+                    ) : (
+                        <p>Sélectionnez une page pour voir son contenu ou composant inconnu.</p>
+                    )}
+                </div>
+                <Button text="Ajouter un élément" />
+                <Button text="Ajouter une section" />
+
+            </div>
         </div>
     );
 }
