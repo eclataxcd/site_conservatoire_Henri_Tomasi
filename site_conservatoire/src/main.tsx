@@ -9,7 +9,7 @@ import { Admin } from './pages/Admin';
 
 
 const router = createBrowserRouter([
-  { path: "/", element: <HomePage />, errorElement: <div>404 Not Found</div> },
+  { path: "/", element: <HomePage mode={false}/>, errorElement: <div>404 Not Found</div> },
   { path: "/Conservatoire", element: <Prices />, errorElement: <div>404 Not Found</div> },
   { path: "/Evenements", element: <Registration />, errorElement: <div>404 Not Found</div> },
   { path: "/Cursus", element: <Extranet />, errorElement: <div>404 Not Found</div> },

@@ -1,15 +1,16 @@
 import { CnxForm } from '../components/bigElements/CnxForm';
 import { ConnectedAdmin } from './ConnectedAdmin';
+import { useState } from 'react';
 
 export function Admin() {
 
-    let login = false;
+    const [login,setLogin] = useState(false);
 
     return (
         <div className='w-full h-screen bg-whiteBg'>
             
-            {login ? (<CnxForm connected={login}/>) : 
-            (<ConnectedAdmin connected={login}/>)}            
+            {!login ? (<CnxForm setConnexion={setLogin}/>) : 
+            (<ConnectedAdmin connected={login} setConnexion={setLogin}/>)}            
         </div>
     );
 }

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { InputForm } from "../smallElements/InputForm";
 import { Button } from "../smallElements/Button";
 
-export function CnxForm({connected}: {connected: boolean}) {
+export function CnxForm({setConnexion}: { setConnexion: (value: boolean) => void }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -25,7 +25,7 @@ export function CnxForm({connected}: {connected: boolean}) {
             console.log(data);
 
             if (response.ok) {
-                connected = true;
+                setConnexion(true);
             }
 
         } catch (error) {

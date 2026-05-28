@@ -3,7 +3,11 @@ import { HomePageBanner } from '../sections/HomePageBanner';
 import { HomePageDisplayCard } from '../sections/HomePageDisplayCard';
 import { useEffect, useState } from 'react';
 
-export function HomePage( mode: boolean = false) {
+interface HomePageProps {
+    mode: boolean;
+}
+
+export function HomePage( { mode }: HomePageProps ) {
     const [titre, setTitre] = useState("Conservatoire de Corse Henri Tomasi");
     const [sousTitre, setSmallTitre] = useState("Etablissement d'enseignement artistique spécialisé, \n Bastia, Aiacciu è Corte");
     const [texteBtn1, setTexteBtn1] = useState("Démarrer \n l'inscription");

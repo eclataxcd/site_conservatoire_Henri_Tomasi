@@ -7,7 +7,7 @@ const componentRegistry: Record<string, React.ComponentType<any>> = {
     "HomePage": HomePage
 };
 
-export function ConnectedAdmin({ connected }: { connected: boolean }) {
+export function ConnectedAdmin({ connected, setConnexion }: { connected: boolean, setConnexion: (value: boolean) => void }) {
     const [balise, setBalise] = useState("");
     const ComponentToRender = balise ? componentRegistry[balise] : null;
 
@@ -15,8 +15,8 @@ export function ConnectedAdmin({ connected }: { connected: boolean }) {
         <div className="flex flex-row h-full bg-whiteBg">
             <AdminLeftSide onClickElem={setBalise} />
 
-            <div className="w-auto h-full ">
-                <div>
+            <div className="w-full h-full ">
+                <div >
                     {ComponentToRender ? (
                         <ComponentToRender mode={connected}/>
                     ) : (
