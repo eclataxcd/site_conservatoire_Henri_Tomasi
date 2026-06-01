@@ -1,8 +1,9 @@
 interface ButtonProps {
-    text: string, 
+    text?: string, 
     style?: string, 
     type?: string,
     onClick?: () => void; 
+    
 }
 
 export function Button({ text, style, type, onClick }: ButtonProps) {
@@ -12,7 +13,7 @@ export function Button({ text, style, type, onClick }: ButtonProps) {
         <>
             {type === undefined ? (
                 <button className={styles} onClick={() => { onClick }}>
-                    {text}
+                    {text}aaaaaaa
                 </button>) 
                 :
                 (<input className={styles} type={type} value={text} />)

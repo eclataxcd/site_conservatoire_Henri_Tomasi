@@ -31,7 +31,7 @@ export function AdminLeftSide({ onClickElem }: AdminLeftSideProps) {
         getAllPages();
     }, []);
 
-    const getPageClicked = async (id: any) => {
+    const getPageBalise = async (id: any) => {
 
         try {
             const response = await fetch(`http://localhost:5000/api/pages/${id}`, {
@@ -54,7 +54,7 @@ export function AdminLeftSide({ onClickElem }: AdminLeftSideProps) {
         <div className="bg-white w-2/9 h-full shadow-summary flex flex-col items-center">
             <h3 className=" text-4xl text-brown font-bodoni font-bold p-4">Les pages</h3>
             {pages.map((page:any) => (
-                <p id={page.id_page} onClick={() => getPageClicked(page.id_page)} className="text-xl font-montserrat p-1 cursor-pointer">
+                <p id={page.id_page} onClick={() => getPageBalise(page.id_page)} className="text-xl font-montserrat p-1 cursor-pointer">
                     {page.nom_page}
                 </p>
             ))}

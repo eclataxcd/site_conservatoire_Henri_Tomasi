@@ -12,11 +12,10 @@ const getAll = async () => {
 
 // Récupérer une page par son id
 const get = async (pageId) => {
-  const { id } = pageId;
 
   // Requête 
-  const querySelect = 'SELECT * FROM available_elements WHERE id = ?';
-  const [rows] = await db.execute(querySelect, [id]);
+  const querySelect = 'SELECT * FROM pages WHERE id_page = ?';
+  const [rows] = await db.execute(querySelect, [pageId]);
 
   return rows[0]; 
 }

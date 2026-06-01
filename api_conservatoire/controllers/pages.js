@@ -15,7 +15,7 @@ const getAllPages = async (req, res) => {
 // Récupérer une page par son id
 const getPageById = async (req, res) => {
   try {
-    const page = await pageService.get({ id: req.params.id });
+    const page = await pageService.get(req.params.id);
     res.status(200).json(page);
   } catch (err) {
     res.status(500).json({ error: "Erreur lors de la récupération de la page." });
