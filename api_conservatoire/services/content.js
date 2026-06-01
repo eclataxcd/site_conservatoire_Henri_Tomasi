@@ -23,6 +23,18 @@ const getBalise = async (data) => {
     return rows;
 }
 
+// Récupérer les propriétés d'une balise
+const getProps = async (idElem) => {
+    const { id } = idElem;
+
+    // Requête
+    const querySelect = 'SELECT * FROM element WHERE id_elem = ?';
+    const [rows] = await db.execute(querySelect, [id]);
+
+    return rows;
+}
+
+
 module.exports = {
-    getAll, getBalise
+    getAll, getBalise, getProps
 };

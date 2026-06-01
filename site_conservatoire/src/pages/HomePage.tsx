@@ -18,7 +18,7 @@ const componentRegistry: Record<string, React.ComponentType<any>> = {
 
 export function HomePage({ mode }: HomePageProps) {
     const [content, setContent] = useState<any[]>([]);
-    const [balises, setBalises] = useState<any[]>([]);
+    const [componentsToRender, setComponentsToRender] = useState<any[]>([]);
 
 
     const [titre, setTitre] = useState("Conservatoire de Corse Henri Tomasi");
@@ -49,60 +49,54 @@ export function HomePage({ mode }: HomePageProps) {
 
 
     useEffect(() => {
-        const loadAllComponents = async () => {
+        const loadComponentsAndProps = async () => {
             if (!content || content.length === 0) return;
 
             try {
                 const promises = content.map(async (elem: any) => {
-                    const data = await getBalise(elem.id_contenu, elem.type);
-                    return data ? data[0].balise : null;
+                    // Récupération de la balise (valable pour section et element)
+                    const baliseResponse = await fetch(`http://localhost:5000/api/content/balise`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ id: elem.id_contenu, table: elem.type })
+                    });
+                    const baliseData = await baliseResponse.json();
+                    
+                    // On extrait le nom textuel (ex: "Button") depuis la ligne ou le premier index du tableau
+                    const nomBalise = Array.isArray(baliseData) ? baliseData[0]?.balise : baliseData?.balise;
+
+                    if (!nomBalise) return null;
+
+                    let proprietes = {};
+                    
+                    // 💡 SI C'EST UN ELEMENT : On va chercher ses props spécifiques dans la table element
+                    if (elem.type === "element") {
+                        const propsResponse = await fetch(`http://localhost:5000/api/content/props`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ id: elem.id_contenu })
+                        });
+                        const propsData = await propsResponse.json();
+                        // On extrait l'objet de propriétés (la ligne SQL)
+                        proprietes = Array.isArray(propsData) ? propsData[0] : propsData;
+                    }
+
+                    // On retourne un objet unique contenant l'association parfaite Balise <-> Props
+                    return {
+                        nom: nomBalise,
+                        props: proprietes || {}
+                    };
                 });
 
                 const results = await Promise.all(promises);
-
-                setBalises(results.filter((item): item is string => item !== null));
+                setComponentsToRender(results.filter(item => item !== null));
             } catch (error) {
-                console.error("Erreur lors du chargement des balises :", error);
+                console.error("Erreur lors du chargement des composants :", error);
             }
         };
 
-        loadAllComponents();
+        loadComponentsAndProps();
     }, [content]);
-
-    const getBalise = async (id: any, table: string) => {
-        try {
-            const response = await fetch(`http://localhost:5000/api/content/balise`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id, table })
-            });
-
-            const data = await response.json();
-            console.log(`Balise récupérée pour id ${id} et table ${table} :`, data);
-            return data;
-        } catch (error) {
-            console.error('Erreur lors de la récupération de la balise :', error);
-            return null;
-        }
-    };
-
-    const getPropsElement = async (idElem: any) => {
-        try {
-            const response = await fetch(`http://localhost:5000/api/content/props`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: idElem })
-            });
-
-            const data = await response.json();
-            console.log(`Props récupérées pour l'élément avec id ${idElem} :`, data);
-            return data;
-        } catch (error) {
-            console.error('Erreur lors de la récupération des props :', error);
-            return null;
-        }
-    };
-
 
 
     return (
@@ -113,14 +107,13 @@ export function HomePage({ mode }: HomePageProps) {
 
 
 
-            {balises.map((nomBalise: string, index: number) => {
-                console.log(`Traitement de la balise : ${balises[index]} à l'index ${index}`);
-                const ComponentToRender = componentRegistry[nomBalise];
-                console.log(`Rendu de la balise : ${nomBalise} avec le composant :`, ComponentToRender);
+           {componentsToRender.map((component: any, index: number) => {
+                const ComponentToRender = componentRegistry[component.nom];
 
                 if (ComponentToRender) {
-
-                    return <ComponentToRender key={index} mode={mode} />;
+                    // On injecte les propriétés SQL directement ({...component.props}) 
+                    // Tout en conservant la propriété globale 'mode'
+                    return <ComponentToRender key={index} mode={mode} {...component.props} />;
                 }
 
                 return null;

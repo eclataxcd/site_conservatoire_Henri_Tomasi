@@ -8,5 +8,7 @@ router.get('/content/:id', contentController.getAllElementAndSectionFromPages);
 // Route : POST /content/balise
 router.post('/content/balise', contentController.getContentBalise);
 
+// Route : POST /content/props
+router.post('/content/props', contentController.getPropsForBalise);
 
 module.exports = router;

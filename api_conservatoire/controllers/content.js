@@ -21,6 +21,16 @@ const getContentBalise = async (req, res) => {
     }
 };
 
+const getPropsForBalise = async (req, res) => {
+    try {
+        const props = await contentService.getProps(req.body);
+        res.status(200).json(props);
+    } catch (err) {
+        console.error("Erreur détaillée :", err);
+        res.status(500).json({ error: "Erreur lors de la récupération des propriétés de la balise." });
+    }
+};
+
 module.exports = {
-    getAllElementAndSectionFromPages, getContentBalise
+    getAllElementAndSectionFromPages, getContentBalise, getPropsForBalise
 };
