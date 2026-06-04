@@ -31,35 +31,18 @@ export function AdminLeftSide({ onClickElem }: AdminLeftSideProps) {
         getAllPages();
     }, []);
 
-    const getPageBalise = async (id: any) => {
-
-        try {
-            const response = await fetch(`http://localhost:5000/api/pages/${id}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            const data = await response.json();
-            console.log(data.balise);
-            onClickElem(data.balise);
-
-        } catch (error) {
-            console.error('Erreur lors de la connexion :', error);
-        }
-    };
+    
 
     return (
-        <div className="bg-white w-2/9 h-full shadow-summary flex flex-col items-center">
+        <div className="bg-white w-2/9 min-h-screen shadow-summary flex flex-col items-center">
             <h3 className=" text-4xl text-brown font-bodoni font-bold p-4">Les pages</h3>
             {pages.map((page:any) => (
-                <p id={page.id_page} onClick={() => getPageBalise(page.id_page)} className="text-xl font-montserrat p-1 cursor-pointer">
+                <p id={page.id_page} onClick={() => onClickElem(page.id_page)} className="text-xl font-montserrat p-1 cursor-pointer">
                     {page.nom_page}
                 </p>
             ))}
             <br />
-            <Button text="Ajouter une page" />
+            <Button texte="Ajouter une page" />
         </div>
     );
 }

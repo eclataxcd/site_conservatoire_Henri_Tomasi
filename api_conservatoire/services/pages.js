@@ -46,13 +46,13 @@ const updateName = async (pageId, pageNewName) => {
 }
 
 // Mettre à jour un element d'une page à partir de son id
-const updateElement = async (ids, ElementData) => {
+const addElement = async (ids, ElementData) => {
   const { idPage, idElement } = ids;
-  const { name, text, document, image, color } = ElementData;
+  const { nom, texte, document, image, couleur, action, balise, hauteur, longueur } = ElementData;
 
   // Requête
-  const queryUpdate = 'UPDATE element SET nom_elem = ?, texte = ?, document = ?, image = ?, couleur = ? WHERE id_elem = ?';
-  const [result] = await db.execute(queryUpdate, [newContentSection, idSection, idPage]);
+  const queryInsert = 'INSERT INTO element (nom_elem, texte, document, image, couleur, action, balise, hauteur, longueur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  const [result] = await db.execute(queryInsert, [nom, texte, document, image, couleur, action, balise, hauteur, longueur ]);
 
   return result;  
 }
@@ -68,4 +68,4 @@ const deletePage = async (pageId) => {
   return result; 
 };
 
-module.exports = { getAll, get, add, updateName, updateElement, deletePage };
+module.exports = { getAll, get, add, updateName, addElement, deletePage };

@@ -34,7 +34,7 @@ export function CnxForm({setConnexion}: { setConnexion: (value: boolean) => void
     };
 
     return (
-        <div className="p-10 bg-white w-1/2 h-auto flex flex-col m-auto mt-30 items-center rounded-lg">
+        <div className="bg-white p-10 w-1/2 h-auto flex flex-col m-auto items-center rounded-lg">
 
             <h1 className="p-3 font-bodoni font-bold text-5xl text-green">Espace Admin</h1>
 
@@ -56,7 +56,7 @@ export function CnxForm({setConnexion}: { setConnexion: (value: boolean) => void
                 
                 <br /><br />
 
-                <Button text="Se connecter" type="submit" />
+                <Button texte="Se connecter" type="submit" />
             </form>
         </div>
 

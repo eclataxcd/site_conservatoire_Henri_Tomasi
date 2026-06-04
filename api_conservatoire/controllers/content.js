@@ -10,6 +10,16 @@ const getAllElementAndSectionFromPages = async (req, res) => {
     }
 };
 
+const getContentSection = async (req, res) => {
+    try {
+        const contentSection = await contentService.getContentSection(req.params.id);
+        res.status(200).json(contentSection);
+    } catch (err) {
+        console.error("Erreur détaillée :", err);
+        res.status(500).json({ error: "Erreur lors de la récupération du contenu de la section." });
+    }
+};
+
 const getContentBalise = async (req, res) => {
     try {
         const balise = await contentService.getBalise(req.body);
@@ -32,5 +42,5 @@ const getPropsForBalise = async (req, res) => {
 };
 
 module.exports = {
-    getAllElementAndSectionFromPages, getContentBalise, getPropsForBalise
+    getAllElementAndSectionFromPages, getContentBalise, getPropsForBalise, getContentSection
 };

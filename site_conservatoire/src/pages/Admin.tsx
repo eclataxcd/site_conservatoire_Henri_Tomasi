@@ -5,9 +5,10 @@ import { useState } from 'react';
 export function Admin() {
 
     const [login,setLogin] = useState(false);
+    const style = !login ? "w-full min-h-screen bg-whiteBg flex items-center justify-center" : "w-full h-screen bg-whiteBg";
 
     return (
-        <div className='w-full h-screen bg-whiteBg'>
+        <div className={style} >
             
             {!login ? (<CnxForm setConnexion={setLogin}/>) : 
             (<ConnectedAdmin connected={login} setConnexion={setLogin}/>)}            

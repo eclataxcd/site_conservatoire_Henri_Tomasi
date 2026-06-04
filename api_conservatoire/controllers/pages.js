@@ -45,13 +45,13 @@ const updatePageName = async (req, res) => {
 };
 
 
-// Mettre à jour un element d'une page à partir de son id
-const updatePageElement = async (req, res) => {
+// Ajouter un élément à une page à partir de son id
+const addElementPage = async (req, res) => {
   try {
-    const updatedPage = await pageService.updateElement({ idPage: req.params.idPage, idElement: req.params.idElement }, req.body);
+    const updatedPage = await pageService.addElement({ idPage: req.params.idPage, idElement: req.params.idElement }, req.body);
     res.status(200).json(updatedPage);
   } catch (err) {
-    res.status(500).json({ error: "Erreur lors de la mise à jour de la section de la page." });
+    res.status(500).json({ error: "Erreur lors de l'ajout de l'élément dans la page." });
   }
 };
 
@@ -67,4 +67,4 @@ const deletePage = async (req, res) => {
 };
 
 
-module.exports = { getAllPages, getPageById, addPage, updatePageName, updatePageElement, deletePage };
+module.exports = { getAllPages, getPageById, addPage, updatePageName, addElementPage, deletePage };

@@ -103,7 +103,7 @@ export function HomePage({ mode }: HomePageProps) {
         <div className='w-full bg-whiteBg'>
             <NavBar />
 
-            <HomePageBanner mode={mode} bigTitle={titre} setBigTitle={setTitre} smallTitle={sousTitre} setSmallTitle={setSmallTitre} btn1={texteBtn1} btn2={texteBtn2} titlePartners={textePartenaires}></HomePageBanner>
+            <HomePageBanner id={1} mode={mode} bigTitle={titre} setBigTitle={setTitre} smallTitle={sousTitre} setSmallTitle={setSmallTitre} btn1={texteBtn1} btn2={texteBtn2} titlePartners={textePartenaires}></HomePageBanner>
 
 
 

@@ -5,6 +5,9 @@ const contentController = require('../controllers/content');
 // Route : GET /content
 router.get('/content/:id', contentController.getAllElementAndSectionFromPages);
 
+// Route : GET /content/section
+router.get('/content/section/:id', contentController.getContentSection);
+
 // Route : POST /content/balise
 router.post('/content/balise', contentController.getContentBalise);
 

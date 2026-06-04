@@ -10,6 +10,16 @@ const getAll = async (pageId) => {
     return rows;
 }
 
+// Récupérer tous les éléments et sections d'une page
+const getContentSection = async (idSection) => {
+
+    // Requête
+    const querySelect = 'SELECT * FROM `section_contain_elem` WHERE id_section = ? ORDER BY ordre ASC';
+    const [rows] = await db.execute(querySelect, [idSection]);
+
+    return rows;
+}
+
 // Récupérer tous les éléments et sections d'une page'
 const getBalise = async (data) => {
     const { id, table } = data;
@@ -36,5 +46,5 @@ const getProps = async (idElem) => {
 
 
 module.exports = {
-    getAll, getBalise, getProps
+    getAll, getBalise, getProps, getContentSection
 };
