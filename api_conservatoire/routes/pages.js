@@ -11,11 +11,11 @@ router.get('/pages/:id', pagesController.getPageById);
 // Route : POST /pages
 router.post('/pages', pagesController.addPage);
 
-// Route : PUT /pages/:id
-router.put('/pages/:id', pagesController.updatePageName);
+// Route : POST /pages/:idPage/element
+router.post('/pages/:idPage/element', pagesController.addElementPage);
 
-// Route : POST /pages/:idPage/element/:idElement
-router.post('/pages/:idPage/element/:idElement', pagesController.addElementPage);
+// Route : POST /pages/:idPage/section
+router.post('/pages/:idPage/section', pagesController.addSectionPage);
 
 // Route : DELETE /pages/:id
 router.delete('/pages/:id', pagesController.deletePage);

@@ -1,16 +1,12 @@
-import { Button } from "../components/smallElements/Button";
 import { useEffect, useState } from "react";
 import { AdminLeftSide } from "../components/bigElements/AdminLeftSide";
-import { HomePage } from "./HomePage";
 import { DynamicForm } from "../components/bigElements/DynamicForm";
 
-const componentRegistry: Record<string, React.ComponentType<any>> = {
-    "HomePage": HomePage
-};
+import componentRegistry from "../RegisteredElements"
 
 
 export function ConnectedAdmin({ connected, setConnexion }: { connected: boolean, setConnexion: (value: boolean) => void }) {
-    const [idPage, setIdPage] = useState("0");
+    const [idPage, setIdPage] = useState("");
     const [balise, setBalise] = useState("");
     const ComponentToRender = balise ? componentRegistry[balise] : null;
 
@@ -45,16 +41,13 @@ export function ConnectedAdmin({ connected, setConnexion }: { connected: boolean
             <div className="w-full flex flex-col items-center">
                 <div className="w-full ">
                     {ComponentToRender ? (
-                        <ComponentToRender mode={connected} />
+                        <ComponentToRender mode={connected} idPage={idPage} />
                     ) : (
                         <p className="text-center py-10">Sélectionnez une page pour voir son contenu.</p>
                     )}
                 </div>
 
                 <DynamicForm idPage={idPage} />
-                {/* faire en sorte que lorsqu'on clique sur une page ça affiche le formulaire, en passant l'id de la page en props */}
-
-
 
             </div>
         </div>

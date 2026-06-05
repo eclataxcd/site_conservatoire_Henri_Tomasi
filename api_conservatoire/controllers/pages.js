@@ -34,24 +34,34 @@ const addPage = async (req, res) => {
 };
 
 
-// Mettre à jour le nom d'une page à partir de son id
-const updatePageName = async (req, res) => {
+// Ajouter un élément à une page à partir de son id
+const addElementPage = async (req, res) => {
   try {
-    const updatedPage = await pageService.updateName({ id: req.params.id }, req.body);
+    const idPage = req.params.idPage;
+    const updatedPage = await pageService.addElement(idPage, req.body);
     res.status(200).json(updatedPage);
   } catch (err) {
-    res.status(500).json({ error: "Erreur lors de la mise à jour de la page." });
+    res.status(500).json({ 
+            error: "Erreur lors de l'ajout de l'élément dans la page.", 
+            messageDetails: err.message,
+            sqlMessage: err.sqlMessage || null
+        });
   }
 };
 
 
 // Ajouter un élément à une page à partir de son id
-const addElementPage = async (req, res) => {
+const addSectionPage = async (req, res) => {
   try {
-    const updatedPage = await pageService.addElement({ idPage: req.params.idPage, idElement: req.params.idElement }, req.body);
+    const idPage = req.params.idPage;
+    const updatedPage = await pageService.addSection(idPage, req.body);
     res.status(200).json(updatedPage);
   } catch (err) {
-    res.status(500).json({ error: "Erreur lors de l'ajout de l'élément dans la page." });
+    res.status(500).json({ 
+            error: "Erreur lors de l'ajout de la section dans la page.", 
+            messageDetails: err.message,
+            sqlMessage: err.sqlMessage || null
+        });
   }
 };
 
@@ -67,4 +77,4 @@ const deletePage = async (req, res) => {
 };
 
 
-module.exports = { getAllPages, getPageById, addPage, updatePageName, addElementPage, deletePage };
+module.exports = { getAllPages, getPageById, addPage, addSectionPage, addElementPage, deletePage };
