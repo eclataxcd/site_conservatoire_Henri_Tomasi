@@ -2,7 +2,7 @@ import { useState } from 'react';
 import dictionnaireElements from '../../ListElements';
 import { Button } from "../smallElements/Button";
 
-export function DynamicForm({ idPage }: { idPage: string }) {
+export function DynamicForm({ idPage, setRefresh }: { idPage: string, setRefresh: ()=>(void) }) {
     const [position, setPosition] = useState("");
     const [elementSelectionne, setElementSelectionne] = useState(dictionnaireElements[0]);
     const [valeursParametres, setValeursParametres] = useState<Record<string, string>>({});
@@ -50,6 +50,7 @@ export function DynamicForm({ idPage }: { idPage: string }) {
             // Réinitialisation du formulaire après succès
             setPosition("");
             setValeursParametres({});
+            setRefresh();
 
         } catch (error: any) {
             console.error("Erreur lors de la soumission :", error);

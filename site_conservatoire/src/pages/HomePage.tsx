@@ -6,15 +6,18 @@ import componentRegistry from '../RegisteredElements'
 interface HomePageProps {
     mode: boolean;
     idPage: number;
+    refresh?:boolean;
 }
 
-export function HomePage({ mode, idPage }: HomePageProps) {
-    // États pour stocker le contenu de la page et les composants à afficher
+export function HomePage({ mode, idPage, refresh }: HomePageProps) {
+    // États pour stocker le contenu de la page, les composants à afficher et savoir si on doit rafraichir la page
     const [content, setContent] = useState<any[]>([]);
     const [componentsToRender, setComponentsToRender] = useState<any[]>([]);
 
+
     // useEffect pour récupérer le contenu (éléments et sections) de la page depuis la base de données
-    const getAllContent = async (id: number) => {
+    useEffect(()=>{
+        const getAllContent = async (id: number) => {
         try {
             const response = await fetch(`http://localhost:5000/api/content/${id}`, {
                 method: 'GET',
@@ -30,6 +33,8 @@ export function HomePage({ mode, idPage }: HomePageProps) {
         }
     };
     getAllContent(idPage);
+    },[refresh])
+    
 
     // useEffect pour, une fois le contenu récupéré, associer à chaque contenu sa balise et ses propriétés si c'est un élément
     useEffect(() => {

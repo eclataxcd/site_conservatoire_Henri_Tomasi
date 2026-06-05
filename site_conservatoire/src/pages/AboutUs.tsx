@@ -6,15 +6,17 @@ import componentRegistry from '../RegisteredElements'
 interface AboutUsProps {
     mode: boolean;
     idPage: number;
+    refresh?:boolean;
 }
 
-export function AboutUs({ mode, idPage }: AboutUsProps) {
+export function AboutUs({ mode, idPage, refresh }: AboutUsProps) {
     // États pour stocker le contenu de la page et les composants à afficher
     const [content, setContent] = useState<any[]>([]);
     const [componentsToRender, setComponentsToRender] = useState<any[]>([]);
 
     // useEffect pour récupérer le contenu (éléments et sections) de la page depuis la base de données
-    const getAllContent = async (id: number) => {
+    useEffect(()=> {
+       const getAllContent = async (id: number) => {
         try {
             const response = await fetch(`http://localhost:5000/api/content/${id}`, {
                 method: 'GET',
@@ -29,7 +31,10 @@ export function AboutUs({ mode, idPage }: AboutUsProps) {
             console.error('Erreur lors de la récupération du sommaire :', error);
         }
     };
-    getAllContent(idPage);
+    getAllContent(idPage); 
+    },[refresh])
+    
+    
 
     // useEffect pour, une fois le contenu récupéré, associer à chaque contenu sa balise et ses propriétés si c'est un élément
     useEffect(() => {
