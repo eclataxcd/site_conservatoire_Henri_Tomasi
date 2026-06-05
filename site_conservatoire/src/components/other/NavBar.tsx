@@ -16,7 +16,7 @@ export function NavBar() {
                 {/* Menu ordi */}
                 <div className="hidden sm:flex gap-4">
 
-                    <Link to="/Conservatoire">Le conservatoire</Link>
+                    <Link to="/AboutUs">Le conservatoire</Link>
                     <Link to="/Evenements">Evenements</Link>
                     <Link to="/Cursus">Les cursus</Link>
                     <Link to="/Antennes">Les antennes</Link>
