@@ -2,11 +2,44 @@ import { useState } from 'react';
 import dictionnaireElements from '../../ListElements';
 import { Button } from "../smallElements/Button";
 
-export function DynamicForm({ idPage, setRefresh }: { idPage: string, setRefresh: ()=>(void) }) {
+export function DynamicForm({ idPage, setRefresh }: { idPage: string, setRefresh: () => (void) }) {
+    // états
     const [position, setPosition] = useState("");
     const [elementSelectionne, setElementSelectionne] = useState(dictionnaireElements[0]);
     const [valeursParametres, setValeursParametres] = useState<Record<string, string>>({});
 
+    // convertit les images en texte pour l'insérer dans la bdd
+    const convertToBase64 = (file: File): Promise<string> => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onload = () => {
+                resolve(fileReader.result as string);
+            };
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
+        });
+    };
+    const handleFileChange = async (cleParametre: string, e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            const file = e.target.files[0];
+            try {
+                // ✨ On utilise await pour extraire la string textuelle de la Promise !
+                const base64Value = await convertToBase64(file);
+
+                // On l'enregistre proprement dans l'état
+                setValeursParametres(prev => ({
+                    ...prev,
+                    [cleParametre]: base64Value
+                }));
+            } catch (error) {
+                console.error("Erreur lors de la conversion de l'image :", error);
+            }
+        }
+    };
+
+    // change les imputs en fonction de l'élément sélectionné
     const handleSelectChange = (e: any) => {
         const cible = dictionnaireElements.find(el => el.balise === e.target.value);
         if (cible) {
@@ -15,6 +48,7 @@ export function DynamicForm({ idPage, setRefresh }: { idPage: string, setRefresh
         }
     };
 
+    // se charge de changer la valeur des inputs 
     const handleInputChange = (cleParametre: string, valeur: any) => {
         setValeursParametres(prev => ({
             ...prev,
@@ -22,6 +56,7 @@ export function DynamicForm({ idPage, setRefresh }: { idPage: string, setRefresh
         }));
     };
 
+    // ajoute l'élément dans la page 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
 
@@ -93,12 +128,22 @@ export function DynamicForm({ idPage, setRefresh }: { idPage: string, setRefresh
                             {elementSelectionne.parametres.map((param) => (
                                 <div key={param.cle} className="flex flex-col gap-1">
                                     <label className="text-sm font-medium font-montserrat">{param.label}</label>
-                                    <input
-                                        type={param.type}
-                                        value={valeursParametres[param.cle] || ''}
-                                        onChange={(e) => handleInputChange(param.cle, e.target.value)}
-                                        className="p-2 border rounded-md focus:ring-1"
-                                    />
+                                    {param.cle === "image" ? (
+                                        // Si c'est un fichier, on utilise handleFileChange et on ne lie pas "value"
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={(e) => handleFileChange(param.cle, e)}
+                                            className="p-2 border rounded-md focus:ring-1"
+                                        />
+                                    ) : (
+                                        <input
+                                            type={param.type}
+                                            value={valeursParametres[param.cle] || ''}
+                                            onChange={(e) => handleInputChange(param.cle, e.target.value)}
+                                            className="p-2 border rounded-md focus:ring-1"
+                                        />
+                                    )}
                                 </div>
                             ))}
                         </div>

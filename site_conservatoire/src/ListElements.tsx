@@ -9,10 +9,11 @@ const dictionnaireElements = [
         balise: "Image",
         type: "element",
         parametres: [
+            { cle: "nom", label: "Nom de l'élément", type: "text" },
             { cle: "image", label: "Fichier de l'image", type: "file" },
             { cle: "texte", label: "Texte alternatif (Description)", type: "text" },
-            { cle: "largeur", label: "Largeur (px)", type: "number" },
-            { cle: "hauteur", label: "Hauteur (px)", type: "number" }
+            { cle: "longueur", label: "Longueur", type: "number" },
+            { cle: "hauteur", label: "Hauteur", type: "number" }
         ]
     },
     {
@@ -20,6 +21,7 @@ const dictionnaireElements = [
         balise: "Button",
         type: "element",
         parametres: [
+            { cle: "nom", label: "Nom de l'élément", type: "text" },
             { cle: "texte", label: "Texte du bouton", type: "text" },
             { cle: "couleur", label: "Couleur du bouton", type: "color" }
         ]
@@ -29,6 +31,7 @@ const dictionnaireElements = [
         balise: "h2",
         type: "element",
         parametres: [
+            { cle: "nom", label: "Nom de l'élément", type: "text" },
             { cle: "contenu", label: "Contenu du titre", type: "text" },
             { cle: "taille", label: "Taille de la police (px)", type: "number" }
         ]

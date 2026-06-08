@@ -41,11 +41,11 @@ const addElementPage = async (req, res) => {
     const updatedPage = await pageService.addElement(idPage, req.body);
     res.status(200).json(updatedPage);
   } catch (err) {
-    res.status(500).json({ 
-            error: "Erreur lors de l'ajout de l'élément dans la page.", 
-            messageDetails: err.message,
-            sqlMessage: err.sqlMessage || null
-        });
+    res.status(500).json({
+      error: "Erreur lors de l'ajout de l'élément dans la page.",
+      messageDetails: err.message,
+      sqlMessage: err.sqlMessage || null
+    });
   }
 };
 
@@ -57,11 +57,11 @@ const addSectionPage = async (req, res) => {
     const updatedPage = await pageService.addSection(idPage, req.body);
     res.status(200).json(updatedPage);
   } catch (err) {
-    res.status(500).json({ 
-            error: "Erreur lors de l'ajout de la section dans la page.", 
-            messageDetails: err.message,
-            sqlMessage: err.sqlMessage || null
-        });
+    res.status(500).json({
+      error: "Erreur lors de l'ajout de la section dans la page.",
+      messageDetails: err.message,
+      sqlMessage: err.sqlMessage || null
+    });
   }
 };
 

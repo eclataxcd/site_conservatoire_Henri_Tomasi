@@ -10,7 +10,7 @@ interface HomePageProps {
 }
 
 export function HomePage({ mode, idPage, refresh }: HomePageProps) {
-    // États pour stocker le contenu de la page, les composants à afficher et savoir si on doit rafraichir la page
+    // États pour stocker le contenu de la page et les composants à afficher
     const [content, setContent] = useState<any[]>([]);
     const [componentsToRender, setComponentsToRender] = useState<any[]>([]);
 
@@ -90,7 +90,6 @@ export function HomePage({ mode, idPage, refresh }: HomePageProps) {
     return (
         <div className='w-full bg-whiteBg'>
             <NavBar />
-            {/*<HomePageBanner id={1} mode={mode} bigTitle={titre} setBigTitle={setTitre} smallTitle={sousTitre} setSmallTitle={setSmallTitre} btn1={texteBtn1} btn2={texteBtn2} titlePartners={textePartenaires}></HomePageBanner> */}
             {/* Affiche le contenu */}
             {componentsToRender.map((component: any) => {
                 const ComponentToRender = componentRegistry[component.nom];

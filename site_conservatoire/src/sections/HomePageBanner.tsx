@@ -3,31 +3,20 @@ import { HomePageTitle } from '../components/smallElements/HomePageTitle';
 import { HomePageSmallTitle } from '../components/smallElements/HomePageSmallTitle';
 import { LogoDisplayer } from './LogoDisplayer';
 import { useState, useEffect } from 'react';
-import { Image } from '../components/smallElements/Image';
+import componentRegistry from '../RegisteredElements'
 
 interface HomePageBannerProps {
     id: number;
     mode: boolean;
-    bigTitle: string;
-    setBigTitle: (value: string) => void;
-    smallTitle: string;
-    setSmallTitle: (value: string) => void;
-    btn1: string;
-    btn2: string;
-    titlePartners: string;
+    refresh?:boolean;
 }
 
-const componentRegistry: Record<string, React.ComponentType<any>> = {
-    "Image" : Image,
-    LogoDisplayer: LogoDisplayer,
-};
-
-
-
-export function HomePageBanner({ id, mode, bigTitle, setBigTitle, smallTitle, setSmallTitle, btn1, btn2, titlePartners }: HomePageBannerProps) {
+export function HomePageBanner({ id, mode, refresh }: HomePageBannerProps) {
+    // États pour stocker le contenu de la section, les composants à afficher et savoir si on doit rafraichir la section
     const [content, setContent] = useState<any[]>([]);
     const [componentsToRender, setComponentsToRender] = useState<any[]>([]);
 
+    // useEffect pour récupérer le contenu (éléments et sections) de la section depuis la base de données
     useEffect(() => {
         const getContent = async (id: number) => {
             try {
@@ -48,6 +37,7 @@ export function HomePageBanner({ id, mode, bigTitle, setBigTitle, smallTitle, se
         getContent(id);
     }, []);
 
+    // useEffect pour, une fois le contenu récupéré, associer à chaque contenu sa balise et ses propriétés si c'est un élément
     useEffect(() => {
         const loadComponentsAndProps = async () => {
             if (!content || content.length === 0) return;
