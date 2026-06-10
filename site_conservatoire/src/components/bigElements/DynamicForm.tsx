@@ -2,7 +2,13 @@ import { useState } from 'react';
 import dictionnaireElements from '../../ListElements';
 import { Button } from "../smallElements/Button";
 
-export function DynamicForm({ idPage, setRefresh }: { idPage: string, setRefresh: () => (void) }) {
+interface DynamicFormProps {
+    id: string,
+    setRefresh: () => (void),
+    insertInto: string
+}
+
+export function DynamicForm({ id, setRefresh, insertInto }: DynamicFormProps) {
     // états
     const [position, setPosition] = useState("");
     const [elementSelectionne, setElementSelectionne] = useState(dictionnaireElements[0]);
@@ -71,34 +77,80 @@ export function DynamicForm({ idPage, setRefresh }: { idPage: string, setRefresh
         // 2. Détermination de l'endpoint selon le type d'élément
         const type = elementSelectionne.type;
 
-        try {
-            await fetch(`http://localhost:5000/api/pages/${idPage}/${type}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(bodyData),
-            });
+        if (insertInto === "page") {
+            try {
+                await fetch(`http://localhost:5000/api/pages/${id}/${type}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(bodyData),
+                });
 
-            alert(`${elementSelectionne.nomAffichage} ajouté avec succès !`);
+                alert(`${elementSelectionne.nomAffichage} ajouté avec succès !`);
 
-            // Réinitialisation du formulaire après succès
-            setPosition("");
-            setValeursParametres({});
-            setRefresh();
+                // Réinitialisation du formulaire après succès
+                setPosition("");
+                setValeursParametres({});
+                setRefresh();
 
-        } catch (error: any) {
-            console.error("Erreur lors de la soumission :", error);
-            alert(`Oops ! ${error.message}`);
+            } catch (error: any) {
+                console.error("Erreur lors de la soumission :", error);
+                alert(`Oops ! ${error.message}`);
+            }
+        } else if (insertInto === "section") {
+            try {
+                await fetch(`http://localhost:5000/api/content/${id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(bodyData),
+                });
+
+                alert(`${elementSelectionne.nomAffichage} ajouté avec succès !`);
+
+                // Réinitialisation du formulaire après succès
+                setPosition("");
+                setValeursParametres({});
+                setRefresh();
+
+            } catch (error: any) {
+                console.error("Erreur lors de la soumission :", error);
+                alert(`Oops ! ${error.message}`);
+            }
+        } else if (insertInto === "element") {
+            try {
+                await fetch(`http://localhost:5000/api/content/${id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(bodyData),
+                });
+
+                alert(`${elementSelectionne.nomAffichage} ajouté avec succès !`);
+
+                // Réinitialisation du formulaire après succès
+                setPosition("");
+                setValeursParametres({});
+                setRefresh();
+
+            } catch (error: any) {
+                console.error("Erreur lors de la soumission :", error);
+                alert(`Oops ! ${error.message}`);
+            }
         }
+
+
     };
 
     return (
         <>
-            {idPage === "" ?
+            {id === "" ?
                 (<></>) :
 
-                (<div className="p-4 max-w-md bg-white rounded-xl shadow">
+                (<div className="p-4 max-w-sm bg-white rounded-xl shadow">
                     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                         {/* LE SELECT POUR CHOISIR L'ÉLÉMENT À AJOUTER */}
                         <div className="flex flex-col gap-1">
@@ -106,7 +158,7 @@ export function DynamicForm({ idPage, setRefresh }: { idPage: string, setRefresh
                             <select
                                 value={elementSelectionne.balise}
                                 onChange={handleSelectChange}
-                                className="p-2 border rounded-md"
+                                className="p-1 border rounded-md"
                             >
                                 {dictionnaireElements.map((element) => (
                                     <option key={element.balise} value={element.balise}>
@@ -125,23 +177,28 @@ export function DynamicForm({ idPage, setRefresh }: { idPage: string, setRefresh
                                 Paramètres à remplir :
                             </h3>
 
-                            {elementSelectionne.parametres.map((param) => (
+                            {elementSelectionne.parametres?.map((param) => (
                                 <div key={param.cle} className="flex flex-col gap-1">
                                     <label className="text-sm font-medium font-montserrat">{param.label}</label>
-                                    {param.cle === "image" ? (
-                                        // Si c'est un fichier, on utilise handleFileChange et on ne lie pas "value"
+                                    {param.type === "image" ? (
                                         <input
                                             type="file"
                                             accept="image/*"
                                             onChange={(e) => handleFileChange(param.cle, e)}
-                                            className="p-2 border rounded-md focus:ring-1"
+                                            className="p-1 border rounded-md focus:ring-1"
+                                        />
+                                    ) : param.type === "textarea" ? (
+                                        <textarea
+                                            value={valeursParametres[param.cle] || ''}
+                                            onChange={(e) => handleInputChange(param.cle, e.target.value)}
+                                            className="p-1 border rounded-md focus:ring-1"
                                         />
                                     ) : (
                                         <input
                                             type={param.type}
                                             value={valeursParametres[param.cle] || ''}
                                             onChange={(e) => handleInputChange(param.cle, e.target.value)}
-                                            className="p-2 border rounded-md focus:ring-1"
+                                            className="p-1 border rounded-md focus:ring-1"
                                         />
                                     )}
                                 </div>

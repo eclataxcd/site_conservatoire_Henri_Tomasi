@@ -56,7 +56,7 @@ export function CnxForm({setConnexion}: { setConnexion: (value: boolean) => void
                 
                 <br /><br />
 
-                <Button texte="Se connecter" type="submit" />
+                <Button texte="Se connecter" type="submit"  couleur="black" couleur2="white"/>
             </form>
         </div>
 

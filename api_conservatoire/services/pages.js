@@ -33,7 +33,7 @@ const add = async (pageName) => {
   return newPageId;
 }
 
-// Mettre à jour un element d'une page à partir de son id
+// Ajouter un element d'une page à partir de son id
 const addElement = async (idPage, ElementData) => {
   const { nom, texte, document, image, couleur, action, balise, hauteur, longueur, ordre } = ElementData;
 
@@ -75,7 +75,7 @@ const addElement = async (idPage, ElementData) => {
   return resultLink;
 }
 
-// Mettre à jour une section d'une page à partir de son id
+// Ajouter une section d'une page à partir de son id
 const addSection = async (idPage, SectionData) => {
 
   const { nom, balise, ordre } = SectionData;

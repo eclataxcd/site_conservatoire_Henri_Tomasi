@@ -10,6 +10,7 @@ import { HomePageTitle } from './components/smallElements/HomePageTitle';
 import { Image } from './components/smallElements/Image';
 import { InputForm } from './components/smallElements/InputForm';
 import { LogoDisplayer } from './sections/LogoDisplayer';
+import { BgImage } from './components/bigElements/BgImage';
 
 
 // Enregistrement de toutes les balises
@@ -28,6 +29,7 @@ const componentRegistry: Record<string, React.ComponentType<any>> = {
     "Image": Image,
     "InputForm": InputForm,
     "Space": Space,
+    "BgImage": BgImage
   
 };
 

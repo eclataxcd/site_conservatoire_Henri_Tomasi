@@ -20,6 +20,16 @@ const getContentSection = async (req, res) => {
     }
 };
 
+const getContentElement = async (req, res) => {
+    try {
+        const contentElem = await contentService.getContentElem(req.params.id);
+        res.status(200).json(contentElem);
+    } catch (err) {
+        console.error("Erreur détaillée :", err);
+        res.status(500).json({ error: "Erreur lors de la récupération du contenu de l'élément" });
+    }
+};
+
 const getContentBalise = async (req, res) => {
     try {
         const balise = await contentService.getBalise(req.body);
@@ -41,6 +51,37 @@ const getPropsForBalise = async (req, res) => {
     }
 };
 
+const updateElem = async (req, res) => {
+    try {
+        const idElem = req.params.id;
+        const elem = await contentService.updateElement(idElem, req.body);
+        res.status(200).json(elem);
+    } catch (err) {
+        console.error("Erreur détaillée :", err);
+        res.status(500).json({ error: "Erreur lors de la modification de l'élément." });
+    }
+};
+
+const deleteElement = async (req, res) => {
+    try {
+        const element = await contentService.deleteElem(req.params.id);
+        res.status(200).json(element);
+    } catch (err) {
+        console.error("Erreur détaillée :", err);
+        res.status(500).json({ error: "Erreur lors de la suppression." });
+    }
+};
+
+const deleteSection = async (req, res) => {
+    try {
+        const section = await contentService.deleteSect(req.params.id);
+        res.status(200).json(section);
+    } catch (err) {
+        console.error("Erreur détaillée :", err);
+        res.status(500).json({ error: "Erreur lors de la suppression." });
+    }
+};
+
 module.exports = {
-    getAllElementAndSectionFromPages, getContentBalise, getPropsForBalise, getContentSection
+    updateElem, getAllElementAndSectionFromPages, getContentBalise, getPropsForBalise, getContentSection, deleteElement, deleteSection, getContentElement
 };

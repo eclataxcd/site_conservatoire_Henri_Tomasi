@@ -1,17 +1,12 @@
-import { Button } from '../components/smallElements/Button';
-import { HomePageTitle } from '../components/smallElements/HomePageTitle';
-import { HomePageSmallTitle } from '../components/smallElements/HomePageSmallTitle';
-import { LogoDisplayer } from './LogoDisplayer';
 import { useState, useEffect } from 'react';
 import componentRegistry from '../RegisteredElements'
 
 interface HomePageBannerProps {
     id: number;
     mode: boolean;
-    refresh?:boolean;
 }
 
-export function HomePageBanner({ id, mode, refresh }: HomePageBannerProps) {
+export function HomePageBanner({ id, mode }: HomePageBannerProps) {
     // États pour stocker le contenu de la section, les composants à afficher et savoir si on doit rafraichir la section
     const [content, setContent] = useState<any[]>([]);
     const [componentsToRender, setComponentsToRender] = useState<any[]>([]);
@@ -84,46 +79,17 @@ export function HomePageBanner({ id, mode, refresh }: HomePageBannerProps) {
     }, [content]);
 
     return (
-        <div className="bg-[url(./assets/HomePageBannerPhoto.jpg)] bg-cover bg-center min-h-[40vw] w-full flex flex-col justify-around">
-
-            {componentsToRender.map((component: any, index: number) => {
+        <>
+            {componentsToRender.map((component: any) => {
                 const ComponentToRender = componentRegistry[component.nom];
 
                 if (ComponentToRender) {
-                    // On injecte les propriétés SQL directement ({...component.props}) 
-                    // Tout en conservant la propriété globale 'mode'
-                    return <ComponentToRender key={index} mode={mode} {...component.props} />;
+                    return <ComponentToRender mode={mode} id={component.id} {...component.props} />;
                 }
 
                 return null;
             })}
-
-
-            <div className='bg-[url(./assets/logo_vert.png)] bg-contain bg-no-repeat w-full h-[70%] flex flex-col items-end '>
-
-                <HomePageTitle mode={mode} text={bigTitle} setText={setBigTitle} />
-                <HomePageSmallTitle mode={mode} text={smallTitle} setText={setSmallTitle} />
-
-            </div>
-
-            <div className='w-full flex flex-row justify-between items-center flex-wrap'>
-
-                <div className='flex flex-row gap-10'>
-                    <Button style='ml-10' texte={btn1} ></Button>
-                    <Button texte={btn2}></Button>
-                </div>
-
-
-                <div>
-                    <h4 className='text-light-green font-bold font-bodoni text-4xl p-3'>{titlePartners}</h4>
-                    <LogoDisplayer mode={mode}/>
-                </div>
-
-            </div>
-
-
-
-        </div>
+        </>
     );
 
 }

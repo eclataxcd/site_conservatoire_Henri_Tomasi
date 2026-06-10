@@ -42,7 +42,7 @@ export function AdminLeftSide({ onClickElem }: AdminLeftSideProps) {
                 </p>
             ))}
             <br />
-            <Button texte="Ajouter une page" />
+            <Button texte="Ajouter une page" couleur="black" couleur2="white"/>
         </div>
     );
 }

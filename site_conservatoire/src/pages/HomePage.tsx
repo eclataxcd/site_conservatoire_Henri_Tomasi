@@ -13,7 +13,9 @@ export function HomePage({ mode, idPage, refresh }: HomePageProps) {
     // États pour stocker le contenu de la page et les composants à afficher
     const [content, setContent] = useState<any[]>([]);
     const [componentsToRender, setComponentsToRender] = useState<any[]>([]);
+    const [reload, setReload] = useState(false)
 
+    const refreshPage=() => {setReload(!reload)}
 
     // useEffect pour récupérer le contenu (éléments et sections) de la page depuis la base de données
     useEffect(()=>{
@@ -33,7 +35,7 @@ export function HomePage({ mode, idPage, refresh }: HomePageProps) {
         }
     };
     getAllContent(idPage);
-    },[refresh])
+    },[refresh, reload])
     
 
     // useEffect pour, une fois le contenu récupéré, associer à chaque contenu sa balise et ses propriétés si c'est un élément
@@ -72,6 +74,7 @@ export function HomePage({ mode, idPage, refresh }: HomePageProps) {
 
                     // On retourne un objet unique contenant l'association parfaite Balise <-> Props
                     return {
+                        id: elem.id_contenu,
                         nom: nomBalise,
                         props: proprietes || {}
                     };
@@ -95,7 +98,7 @@ export function HomePage({ mode, idPage, refresh }: HomePageProps) {
                 const ComponentToRender = componentRegistry[component.nom];
 
                 if (ComponentToRender) {
-                    return <ComponentToRender mode={mode} {...component.props} />;
+                    return <ComponentToRender mode={mode} id={component.id} reload={refreshPage} {...component.props} />;
                 }
 
                 return null;

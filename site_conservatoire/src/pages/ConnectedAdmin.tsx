@@ -49,7 +49,7 @@ export function ConnectedAdmin({ connected, setConnexion }: { connected: boolean
                     )}
                 </div>
 
-                <DynamicForm idPage={idPage} setRefresh={refreshPage} />
+                <DynamicForm id={idPage} setRefresh={refreshPage} insertInto="page"/>
 
             </div>
         </div>
